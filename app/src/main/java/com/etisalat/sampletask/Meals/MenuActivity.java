@@ -11,8 +11,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.etisalat.sampletask.ImagePickerActivity;
 import com.etisalat.sampletask.Meals.models.Item;
 import com.etisalat.sampletask.bases.ApplicationClass;
 import com.etisalat.sampletask.bases.BaseActivity;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.etisalat.sampletask.bases.recivers.NetworkStateChangeReciver.IS_NETWORK_AVAILABLE;
 
@@ -42,24 +46,32 @@ public class MenuActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        SharedPreferences pref = ApplicationClass.getInstance().getSharedPreferences("MyPref", 0);
-        TV_Title.setText("last Update " + pref.getString("lastUpdatedTime", null));
+        getLastUpdateTime();
 
-        if ( !ApplicationClass.hasNetwork() )
-        {
-            showSnackbar("Network Status: connection problem" ,layout);
-        }
+        getConnectionLostNotification();
+
         IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReciver.NETWORK_AVAILABLE_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 boolean isNetworkAvailable = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false);
                 String networkStatus = isNetworkAvailable ? "connected" : "disconnected";
-                showSnackbar("Network Status: " + networkStatus,layout);
+                showSnackbar("Network Status: " + networkStatus, layout);
+                Log.d("connection",networkStatus);
             }
         }, intentFilter);
     }
 
+    private void getLastUpdateTime() {
+        SharedPreferences pref = ApplicationClass.getInstance().getSharedPreferences("MyPref", 0);
+        TV_Title.setText("last Update " + pref.getString("lastUpdatedTime", null));
+    }
+
+    private void getConnectionLostNotification() {
+        if (!ApplicationClass.hasNetwork()) {
+            showSnackbar("Network Status: connection Lost", layout);
+        }
+    }
 
     @Override
     protected BasePresenter setupPresenter() {
@@ -67,12 +79,14 @@ public class MenuActivity extends BaseActivity {
     }
 
     @Override
-    public void handelSnackbarVisibilty() {
-
-    }
-
-    @Override
     public void addItems(ArrayList<Item> items) {
 
     }
+
+    @OnClick(R.id.floatingActionBtn)
+    void onClickPickButton() {
+        startActivity(new Intent(this, ImagePickerActivity.class));
+
+    }
+
 }

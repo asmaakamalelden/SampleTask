@@ -29,15 +29,4 @@ public class MenuUseCase {
         Log.d("modelRepo",menuRepository.getMenuItems().toString());
         return menuRepository.getMenuItems();
     }
-
-    public ArrayList<Item> sortMenuItems(ArrayList<Item> items){
-
-        Collections.sort(items, new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-        return items;
-    }
 }

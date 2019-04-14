@@ -10,6 +10,7 @@ import android.util.Log;
 import com.etisalat.sampletask.Meals.models.Item;
 import com.etisalat.sampletask.Meals.models.MenuModel;
 import com.etisalat.sampletask.Meals.usecases.MenuUseCase;
+import com.etisalat.sampletask.Meals.usecases.Utils;
 import com.etisalat.sampletask.bases.ApplicationClass;
 import com.etisalat.sampletask.bases.BasePresenter;
 import com.etisalat.sampletask.bases.BasePresenterListener;
@@ -47,7 +48,7 @@ public class MenuPresenter extends BasePresenter {
 
             @Override
             public void onNext(MenuModel menuModel) {
-                listener.addItems(menuUseCase.sortMenuItems(menuModel.getItem()));
+                listener.addItems(Utils.sortMenuItems(menuModel.getItem()));
                 Date currentTime = Calendar.getInstance().getTime();
                 setLastUpdateTime(currentTime.toString());
             }

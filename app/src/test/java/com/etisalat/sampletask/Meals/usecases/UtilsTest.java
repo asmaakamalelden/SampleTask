@@ -9,32 +9,30 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class MenuUseCaseTest {
+public class UtilsTest {
 
     @Test
     public void sortMenuItems() {
         ArrayList<Item> items=new ArrayList<Item>();
         ArrayList<Item> expect=new ArrayList<Item>();
 
-        Item item=new Item();
-        item.setId("1");
-        item.setName("aaaa");
-        item.setDescription("Desc1");
+        Item item1=new Item();
         Item item2=new Item();
+        item1.setId("1");
+        item1.setName("aaaa");
+        item1.setDescription("Desc1");
         item2.setId("2");
         item2.setName("bbbbb");
         item2.setDescription("Desc2");
+
         items.add(item2);
+        items.add(item1);
 
-
+        expect.add(item1);
         expect.add(item2);
-        expect.add(item);
 
+        ArrayList<Item> result= Utils.sortMenuItems(items);
 
-
-        MenuUseCase menuUseCase=new MenuUseCase();
-        ArrayList<Item> result= menuUseCase.sortMenuItems(items);
-
-       Assert.assertEquals(expect,result);
+        Assert.assertEquals(expect,result);
     }
 }

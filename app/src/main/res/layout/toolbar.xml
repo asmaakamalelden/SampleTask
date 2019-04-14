@@ -9,6 +9,5 @@
     android:id="@+id/titleText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="15dp"
-    tools:text="aaaaa"/>
+    android:textSize="15dp" />
 </android.support.v7.widget.Toolbar>

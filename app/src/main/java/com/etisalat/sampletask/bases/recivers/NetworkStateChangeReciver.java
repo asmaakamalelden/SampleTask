@@ -11,7 +11,7 @@ import android.util.Log;
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class NetworkStateChangeReciver extends BroadcastReceiver {
-    public static final String NETWORK_AVAILABLE_ACTION = "com.ajit.singh.NetworkAvailable";
+    public static final String NETWORK_AVAILABLE_ACTION = "com.etisalat.sampletask.NetworkAvailable";
     public static final String IS_NETWORK_AVAILABLE = "isNetworkAvailable";
 
     @Override
@@ -19,19 +19,12 @@ public class NetworkStateChangeReciver extends BroadcastReceiver {
         Intent networkStateIntent = new Intent(NETWORK_AVAILABLE_ACTION);
         networkStateIntent.putExtra(IS_NETWORK_AVAILABLE,  isConnectedToInternet(context));
         LocalBroadcastManager.getInstance(context).sendBroadcast(networkStateIntent);
+        Log.d("connect",String.valueOf(isConnectedToInternet(context)));
     }
 
     private boolean isConnectedToInternet(Context context) {
-        try {
-            if (context != null) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                return networkInfo != null && networkInfo.isConnected();
-            }
-            return false;
-        } catch (Exception e) {
-            Log.e(NetworkStateChangeReciver.class.getName(), e.getMessage());
-            return false;
-        }
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

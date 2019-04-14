@@ -7,6 +7,5 @@ import java.util.ArrayList;
 public interface BasePresenterListener {
     void showProgress();
     void hideProgress();
-    void handelSnackbarVisibilty();
     void addItems(ArrayList<Item> items);
 }

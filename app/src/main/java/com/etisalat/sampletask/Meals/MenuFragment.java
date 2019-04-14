@@ -1,9 +1,11 @@
 package com.etisalat.sampletask.Meals;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.etisalat.sampletask.ImagePickerActivity;
 import com.etisalat.sampletask.Meals.models.Item;
 import com.etisalat.sampletask.bases.BaseFragment;
 import com.example.sampletask.R;
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MenuFragment extends BaseFragment<MenuPresenter> {
 
@@ -28,7 +33,7 @@ public class MenuFragment extends BaseFragment<MenuPresenter> {
     LinearLayout baseView;
     MenuPresenter menuPresenter;
     MenuAdapter menuAdapter;
-//    ArrayList<Item> items;
+
 
 
     @Nullable
@@ -62,11 +67,6 @@ public class MenuFragment extends BaseFragment<MenuPresenter> {
         menuAdapter=new MenuAdapter();
         rv_Menu.setAdapter(menuAdapter);
 
-    }
-
-    @Override
-    public void handelSnackbarVisibilty() {
-        showSnackbar("connection problem",baseView);
     }
 
     @Override
